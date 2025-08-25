@@ -1,0 +1,92 @@
+# GitHub Pages Configuration for TopoBDA
+
+# Site settings
+title: "TopoBDA"
+description: "Topology-Aware Bird's Eye View Attention for Multi-View 3D Object Detection"
+author: "TopoBDA Research Team"
+email: ""
+baseurl: ""
+url: "https://artest08.github.io/TopoBDA.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# GitHub Pages settings
+repository: artest08/TopoBDA.github.io
+github_username: artest08
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO settings
+lang: en_US
+keywords: 
+  - "3D object detection"
+  - "topology-aware attention"
+  - "bird's eye view"
+  - "autonomous driving"
+  - "multi-view detection"
+  - "computer vision"
+  - "deep learning"
+
+# Social media
+twitter:
+  username: ""
+  card: summary_large_image
+
+# Google Analytics (add your tracking ID if needed)
+# google_analytics: ""
+
+# Include/Exclude files
+include:
+  - _pages
+  - images
+  - "*.pdf"
+  - "*.html"
+  - "*.css"
+  - "*.js"
+
+exclude:
+  - vendor
+  - .bundle
+  - .sass-cache
+  - .jekyll-cache
+  - gemfiles
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Custom variables
+research:
+  title: "TopoBDA"
+  subtitle: "Topology-Aware Bird's Eye View Attention for Multi-View 3D Object Detection"
+  keywords: "topology-aware attention, 3D object detection, autonomous driving"
+  year: 2025
