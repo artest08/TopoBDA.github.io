@@ -36,8 +36,24 @@ header h1 {
 .subtitle {
     font-size: 1.3rem;
     font-weight: 300;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     opacity: 0.9;
+}
+
+.authors {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.95;
+}
+
+.author {
+    font-weight: 500;
+}
+
+.affiliations {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    opacity: 0.85;
 }
 
 nav {
@@ -229,6 +245,350 @@ p {
 }
 
 .pdf-viewer a:hover {
+    text-decoration: underline;
+}
+
+/* Method descriptions */
+.method-overview {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #5a6c7d;
+}
+
+.method-description, .result-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #6c757d;
+    margin-top: 1rem;
+    text-align: left;
+}
+
+/* Results section enhancements */
+.results-overview {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #5a6c7d;
+}
+
+/* Abstract highlights */
+.highlights {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.highlights h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.highlights ul {
+    list-style: none;
+    padding: 0;
+}
+
+.highlights li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+    text-align: left;
+}
+
+.highlights li:last-child {
+    border-bottom: none;
+}
+
+.highlights li strong {
+    color: #667eea;
+}
+
+/* Performance tables */
+.performance-tables {
+    margin-top: 3rem;
+}
+
+.table-container {
+    margin-bottom: 3rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.table-container h4 {
+    background: #667eea;
+    color: white;
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.results-table th,
+.results-table td {
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.results-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+.results-table tr.highlight {
+    background: #fff3cd;
+}
+
+.results-table tr.best {
+    background: #d4edda;
+}
+
+.results-table td strong {
+    color: #28a745;
+    font-weight: 700;
+}
+
+.table-note {
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+    background: #f8f9fa;
+    margin: 0;
+    font-style: italic;
+}
+
+/* State-of-the-art comparison */
+.comparison-overview {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #5a6c7d;
+}
+
+.sota-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.sota-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-left: 5px solid #667eea;
+}
+
+.performance-highlight {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.achievement-list {
+    list-style: none;
+    padding: 0;
+}
+
+.achievement-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.achievement-list li:last-child {
+    border-bottom: none;
+}
+
+.achievement-list li strong {
+    color: #667eea;
+}
+
+/* Key innovations */
+.key-innovations {
+    margin-top: 3rem;
+}
+
+.innovations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.innovation-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.innovation-item:hover {
+    transform: translateY(-5px);
+}
+
+.innovation-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.innovation-item p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+    margin: 0;
+}
+
+/* Paper section enhancements */
+.paper-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.paper-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.journal-info {
+    font-size: 1rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.paper-description {
+    color: #5a6c7d;
+    margin-bottom: 2rem;
+}
+
+.paper-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Citation section */
+.citation-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.citation-box {
+    position: relative;
+    background: #2d3748;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.citation-box pre {
+    padding: 1.5rem;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.citation-box code {
+    color: #e2e8f0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: #5a67d8;
+}
+
+/* Keywords section */
+.keywords-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.keyword {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Footer enhancements */
+footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+    opacity: 0.8;
+}
+
+.footer-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 1;
     text-decoration: underline;
 }
 

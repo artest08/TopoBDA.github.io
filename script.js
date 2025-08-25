@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe all sections and grid items
-    const elementsToObserve = document.querySelectorAll('section, .method-item, .result-item, .analysis-item');
+    const elementsToObserve = document.querySelectorAll('section, .method-item, .result-item, .analysis-item, .sota-item, .innovation-item');
     elementsToObserve.forEach(el => {
         observer.observe(el);
     });
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        section, .method-item, .result-item, .analysis-item {
+        section, .method-item, .result-item, .analysis-item, .sota-item, .innovation-item {
             opacity: 0;
             transform: translateY(30px);
         }
@@ -184,6 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 case '4':
                     e.preventDefault();
+                    document.querySelector('#comparison').scrollIntoView({ behavior: 'smooth' });
+                    break;
+                case '5':
+                    e.preventDefault();
                     document.querySelector('#paper').scrollIntoView({ behavior: 'smooth' });
                     break;
             }
@@ -195,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     printStyle.media = 'print';
     printStyle.textContent = `
         @media print {
-            header nav, .buttons, .pdf-viewer embed {
+            header nav, .buttons, .pdf-viewer embed, .copy-btn {
                 display: none;
             }
             
@@ -208,11 +212,106 @@ document.addEventListener('DOMContentLoaded', function() {
                 page-break-after: avoid;
             }
             
-            .method-item, .result-item, .analysis-item {
+            .method-item, .result-item, .analysis-item, .sota-item {
                 page-break-inside: avoid;
                 margin-bottom: 1rem;
+            }
+            
+            .results-table {
+                font-size: 10pt;
+            }
+            
+            .citation-box {
+                background: #f8f9fa !important;
+                border: 1px solid #dee2e6;
+            }
+            
+            .citation-box code {
+                color: #333 !important;
             }
         }
     `;
     document.head.appendChild(printStyle);
 });
+
+// Copy citation to clipboard
+function copyToClipboard() {
+    const citationText = `@article{kalfaoglu2025topobda,
+    title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
+    author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
+    journal={Neurocomputing},
+    year={2025},
+    publisher={Elsevier}
+}`;
+
+    // Try using the modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(citationText).then(function() {
+            showCopyFeedback('Citation copied to clipboard!');
+        }).catch(function(err) {
+            // Fallback to older method
+            fallbackCopyTextToClipboard(citationText);
+        });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyTextToClipboard(citationText);
+    }
+}
+
+// Fallback copy method for older browsers
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showCopyFeedback('Citation copied to clipboard!');
+        } else {
+            showCopyFeedback('Failed to copy citation');
+        }
+    } catch (err) {
+        showCopyFeedback('Failed to copy citation');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+// Show feedback when copying
+function showCopyFeedback(message) {
+    const feedback = document.createElement('div');
+    feedback.textContent = message;
+    feedback.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        z-index: 10000;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    `;
+    
+    document.body.appendChild(feedback);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        feedback.style.opacity = '0';
+        feedback.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            document.body.removeChild(feedback);
+        }, 300);
+    }, 3000);
+}
