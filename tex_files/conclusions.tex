@@ -1,0 +1,20 @@
+\section{Conclusion}
+
+Experimental evaluations demonstrate that \textbf{TopoBDA achieves state-of-the-art performance} across both subsets of the OpenLane-V2 dataset, using the version 1.1 metric baseline. Specifically, TopoBDA surpasses existing methods with a \textbf{DET$_l$ score of 38.9} and an \textbf{OLS score of 51.7} in Subset-A, and a \textbf{DET$_l$ score of 45.1} and an \textbf{OLS score of 54.3} in Subset-B. The integration of multi-modal data significantly boosts performance: fusing camera and LiDAR data increases the OLS score in Subset-A from \textbf{51.7 to 56.4}, and in Subset-B from \textbf{54.3 to 61.7}. Further incorporating SDMap alongside camera and LiDAR sensors raises the OLS score in Subset-A to \textbf{58.4}. These results underscore the effectiveness of TopoBDA in road topology comprehension and highlight the substantial benefits of multi-modal fusion.
+
+Additionally, TopoBDA achieves superior results on the OpenLane-V1 benchmark for 3D lane detection, with F1-scores of \textbf{63.9} at a 1.5m distance and \textbf{57.9} at a 0.5m distance.
+
+This work contributes toward closing existing gaps in HDMap element prediction, offering a unified framework for road topology understanding and 3D lane detection in autonomous driving. By leveraging Bezier deformable attention, instance mask formulation, multi-modal fusion, and an auxiliary one-to-many set prediction loss strategy, TopoBDA delivers high accuracy in centerline detection and topological reasoning. The approach not only improves computational efficiency but also sets a new benchmark in the field, highlighting its potential for practical applications in autonomous driving systems. The contributions of the TopoBDA study are also demonstrated in Supplementary Table \ref{sup_tab: topobda_comparison} in Section \ref{sup_sec: novelty_analysis_section}. 
+
+Despite its strengths, TopoBDA has certain limitations. While it performs well in detecting structured elements such as centerlines and lane dividers, it may face challenges in drivable area prediction. These regions often exhibit complex geometries with protrusions and indentations, which are difficult to represent using a fixed number of Bezier control points. Accurately modeling such shapes may require a larger number of control points, increasing the computational burden of the attention mechanism.
+
+Moreover, the architecture imposes constraints on feature dimensionality: the number of channels in query features must be divisible by both the number of self-attention heads and the number of Bezier control points, which correspond to the number of heads in the cross-attention (Bezier Deformable Attention). Consequently, adjusting the number of control points may necessitate changes in feature dimensions, potentially complicating design flexibility. A detailed analysis of these constraints is provided in Supplementary Section~\ref{sup_sec: impact_of_control_points}.
+
+
+\section*{Acknowledgements}
+
+We acknowledge the use of the TRUBA high-performance computing infrastructure provided by TÜBİTAK ULAKBİM for the computations in this study. We also extend our gratitude to the Barcelona Supercomputing Center (BSC-CNS) and the EuroHPC Joint Undertaking for granting access to the MareNostrum 5 supercomputer, which provided additional computational resources.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+
+During the preparation of this work, the authors used Microsoft Copilot to improve the language of the paper and to format the tables. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the publication.

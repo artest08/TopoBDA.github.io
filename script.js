@@ -1,6 +1,119 @@
-// Smooth scrolling for navigation links
+// Enhanced JavaScript for TopoBDA GitHub Pages
+
+// Copy citation to clipboard with improved feedback
+function copyToClipboard() {
+    const citationText = `@article{kalfaoglu2025topobda,
+    title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
+    author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
+    journal={Neurocomputing},
+    year={2025},
+    publisher={Elsevier}
+}`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(citationText).then(function() {
+            showCopyFeedback('✓ Citation copied to clipboard!', 'success');
+        }).catch(function(err) {
+            fallbackCopyTextToClipboard(citationText);
+        });
+    } else {
+        fallbackCopyTextToClipboard(citationText);
+    }
+}
+
+// Fallback copy method for older browsers
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.cssText = "position: fixed; top: 0; left: 0; opacity: 0;";
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        showCopyFeedback(
+            successful ? '✓ Citation copied to clipboard!' : '✗ Failed to copy citation',
+            successful ? 'success' : 'error'
+        );
+    } catch (err) {
+        showCopyFeedback('✗ Failed to copy citation', 'error');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+// Enhanced feedback system
+function showCopyFeedback(message, type = 'success') {
+    const feedback = document.createElement('div');
+    feedback.textContent = message;
+    
+    const colors = {
+        success: { bg: '#28a745', text: 'white' },
+        error: { bg: '#dc3545', text: 'white' },
+        info: { bg: '#17a2b8', text: 'white' }
+    };
+    
+    feedback.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type].bg};
+        color: ${colors[type].text};
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        z-index: 10000;
+        font-weight: 500;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        transition: all 0.3s ease;
+        transform: translateX(100%);
+        opacity: 0;
+    `;
+    
+    document.body.appendChild(feedback);
+    
+    // Animate in
+    requestAnimationFrame(() => {
+        feedback.style.transform = 'translateX(0)';
+        feedback.style.opacity = '1';
+    });
+    
+    // Animate out and remove
+    setTimeout(() => {
+        feedback.style.opacity = '0';
+        feedback.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (feedback.parentNode) {
+                document.body.removeChild(feedback);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Enhanced DOM ready functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Smooth scrolling for anchor links
+    // Initialize smooth scrolling
+    initSmoothScrolling();
+    
+    // Initialize image handling
+    initImageHandling();
+    
+    // Initialize animations
+    initScrollAnimations();
+    
+    // Initialize table interactions
+    initTableInteractions();
+    
+    // Initialize accessibility features
+    initAccessibility();
+    
+    // Initialize performance optimizations
+    initPerformanceOptimizations();
+});
+
+// Smooth scrolling for navigation links
+function initSmoothScrolling() {
     const links = document.querySelectorAll('a[href^="#"]');
     
     links.forEach(link => {
@@ -11,15 +124,104 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
+                // Add visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+                
                 targetSection.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
+                
+                // Update URL without jumping
+                history.pushState(null, null, targetId);
             }
         });
     });
+}
 
-    // Add scroll-based animations
+// Enhanced image handling with modal functionality
+function initImageHandling() {
+    const researchFigures = document.querySelectorAll('.research-figure');
+    
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('imageModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'imageModal';
+        modal.className = 'image-modal';
+        modal.innerHTML = `
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="">
+        `;
+        document.body.appendChild(modal);
+    }
+    
+    const modalImg = modal.querySelector('#modalImage');
+    const closeBtn = modal.querySelector('.close');
+    
+    // Add click listeners to research figures
+    researchFigures.forEach(img => {
+        img.addEventListener('click', function() {
+            modal.style.display = 'block';
+            modalImg.src = this.src;
+            modalImg.alt = this.alt;
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+        
+        // Add keyboard accessibility
+        img.setAttribute('tabindex', '0');
+        img.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+    
+    // Close modal functionality
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    closeBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Keyboard controls for modal
+    document.addEventListener('keydown', function(e) {
+        if (modal.style.display === 'block' && e.key === 'Escape') {
+            closeModal();
+        }
+    });
+    
+    // Add loading animation for images
+    researchFigures.forEach(img => {
+        if (img.complete && img.naturalHeight !== 0) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
+            
+            img.addEventListener('error', function() {
+                console.warn('Failed to load image:', this.src);
+                this.style.opacity = '0.5';
+                this.style.filter = 'grayscale(100%)';
+            });
+        }
+    });
+}
+
+// Enhanced scroll animations
+function initScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -29,27 +231,41 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
+                
+                // Special handling for performance tables
+                if (entry.target.classList.contains('performance-table')) {
+                    animateTableNumbers(entry.target);
+                }
             }
         });
     }, observerOptions);
 
-    // Observe all sections and grid items
-    const elementsToObserve = document.querySelectorAll('section, .method-item, .result-item, .analysis-item, .sota-item, .innovation-item');
+    // Observe elements
+    const elementsToObserve = document.querySelectorAll(`
+        section, 
+        .method-item, 
+        .result-item, 
+        .analysis-item, 
+        .sota-item, 
+        .innovation-item,
+        .performance-table
+    `);
+    
     elementsToObserve.forEach(el => {
         observer.observe(el);
     });
 
-    // Add fade-in animation styles
-    const style = document.createElement('style');
-    style.textContent = `
+    // Add animation styles
+    const animationStyle = document.createElement('style');
+    animationStyle.textContent = `
         .fade-in {
-            animation: fadeInUp 0.6s ease-out forwards;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
         
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -57,261 +273,222 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        section, .method-item, .result-item, .analysis-item, .sota-item, .innovation-item {
+        section:not(.fade-in), 
+        .method-item:not(.fade-in), 
+        .result-item:not(.fade-in), 
+        .analysis-item:not(.fade-in), 
+        .sota-item:not(.fade-in), 
+        .innovation-item:not(.fade-in) {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
         }
     `;
-    document.head.appendChild(style);
+    document.head.appendChild(animationStyle);
+}
 
-    // PDF loading enhancement
-    const pdfEmbeds = document.querySelectorAll('embed[type="application/pdf"]');
+// Animate table numbers
+function animateTableNumbers(table) {
+    const numberCells = table.querySelectorAll('td');
     
-    pdfEmbeds.forEach(embed => {
-        const container = embed.closest('.pdf-viewer');
+    numberCells.forEach(cell => {
+        const text = cell.textContent.trim();
+        const number = parseFloat(text);
         
-        embed.addEventListener('load', function() {
-            if (container) {
-                container.style.position = 'relative';
-            }
-        });
+        if (!isNaN(number) && number > 0) {
+            let current = 0;
+            const increment = number / 30;
+            const duration = 1500;
+            const steps = duration / 50;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= number) {
+                    cell.textContent = number.toFixed(1);
+                    clearInterval(timer);
+                } else {
+                    cell.textContent = current.toFixed(1);
+                }
+            }, 50);
+        }
+    });
+}
 
-        // Add error handling for PDF loading
-        embed.addEventListener('error', function() {
-            const errorMsg = document.createElement('div');
-            errorMsg.innerHTML = `
-                <p style="color: #e74c3c; padding: 2rem; text-align: center;">
-                    Unable to load PDF. <a href="${this.src}" target="_blank" style="color: #667eea;">Click here to view directly</a>
-                </p>
-            `;
-            this.parentNode.replaceChild(errorMsg, this);
+// Enhanced table interactions
+function initTableInteractions() {
+    const tables = document.querySelectorAll('.performance-table');
+    
+    tables.forEach(table => {
+        const rows = table.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.zIndex = '10';
+                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.zIndex = '1';
+                this.style.boxShadow = 'none';
+            });
+            
+            // Add click to highlight
+            row.addEventListener('click', function() {
+                // Remove previous highlights
+                rows.forEach(r => r.classList.remove('highlighted'));
+                this.classList.add('highlighted');
+            });
         });
     });
-
-    // Add header scroll effect
-    let lastScrollTop = 0;
-    const header = document.querySelector('header');
     
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 100) {
-            header.style.transform = 'translateY(-100%)';
-            header.style.transition = 'transform 0.3s ease';
-        } else {
-            header.style.transform = 'translateY(0)';
+    // Add highlight styles
+    const highlightStyle = document.createElement('style');
+    highlightStyle.textContent = `
+        .performance-table tbody tr.highlighted {
+            background-color: #e3f2fd !important;
+            border-left: 4px solid #667eea;
         }
         
-        lastScrollTop = scrollTop;
-    });
+        .performance-table tbody tr {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(highlightStyle);
+}
 
-    // Add loading state for the page
+// Accessibility improvements
+function initAccessibility() {
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        // Alt + number shortcuts
+        if (e.altKey) {
+            const shortcuts = {
+                '1': '#abstract',
+                '2': '#method', 
+                '3': '#results',
+                '4': '#innovations',
+                '5': '#paper'
+            };
+            
+            if (shortcuts[e.key]) {
+                e.preventDefault();
+                const target = document.querySelector(shortcuts[e.key]);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.focus();
+                }
+            }
+        }
+        
+        // Escape to close modals/overlays
+        if (e.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal, .overlay');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+    });
+    
+    // Add focus indicators
+    const focusStyle = document.createElement('style');
+    focusStyle.textContent = `
+        *:focus {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+        
+        .pdf-embed-container:focus-within {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+    `;
+    document.head.appendChild(focusStyle);
+}
+
+// Performance optimizations
+function initPerformanceOptimizations() {
+    // Lazy load images if any
+    const images = document.querySelectorAll('img[data-src]');
+    if (images.length > 0) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+    
+    // Add loading state management
     window.addEventListener('load', function() {
         document.body.classList.add('loaded');
         
-        // Add loaded styles
-        const loadedStyle = document.createElement('style');
-        loadedStyle.textContent = `
-            body:not(.loaded) {
-                overflow: hidden;
-            }
-            
-            body:not(.loaded)::before {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: white;
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            body:not(.loaded)::after {
-                content: 'Loading TopoBDA...';
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 10000;
-                font-size: 1.2rem;
-                color: #667eea;
-                font-weight: 600;
-            }
-        `;
-        document.head.appendChild(loadedStyle);
+        // Remove any loading indicators
+        const loadingElements = document.querySelectorAll('.loading, .spinner');
+        loadingElements.forEach(el => el.remove());
     });
-
-    // Add click tracking for analytics (placeholder)
-    document.addEventListener('click', function(e) {
-        if (e.target.matches('a[href$=".pdf"]')) {
-            console.log('PDF download/view:', e.target.href);
-            // Add analytics tracking here if needed
-        }
-    });
-
-    // Enhanced mobile navigation
-    const navLinks = document.querySelectorAll('nav a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // Close mobile menu if exists (for future mobile menu implementation)
-            const mobileMenu = document.querySelector('.mobile-menu');
-            if (mobileMenu) {
-                mobileMenu.classList.remove('active');
-            }
-        });
-    });
-
-    // Add keyboard navigation support
-    document.addEventListener('keydown', function(e) {
-        // Add keyboard shortcuts for navigation
-        if (e.altKey) {
-            switch(e.key) {
-                case '1':
-                    e.preventDefault();
-                    document.querySelector('#abstract').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case '2':
-                    e.preventDefault();
-                    document.querySelector('#method').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case '3':
-                    e.preventDefault();
-                    document.querySelector('#results').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case '4':
-                    e.preventDefault();
-                    document.querySelector('#comparison').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case '5':
-                    e.preventDefault();
-                    document.querySelector('#paper').scrollIntoView({ behavior: 'smooth' });
-                    break;
-            }
-        }
-    });
-
+    
     // Add print styles
     const printStyle = document.createElement('style');
     printStyle.media = 'print';
     printStyle.textContent = `
         @media print {
-            header nav, .buttons, .pdf-viewer embed, .copy-btn {
+            header nav, .copy-btn, .pdf-embed-container, .buttons {
                 display: none;
             }
             
             body {
                 font-size: 12pt;
                 line-height: 1.4;
+                color: #000;
             }
             
             h1, h2, h3 {
                 page-break-after: avoid;
+                color: #000;
             }
             
-            .method-item, .result-item, .analysis-item, .sota-item {
-                page-break-inside: avoid;
-                margin-bottom: 1rem;
-            }
-            
-            .results-table {
+            .performance-table {
                 font-size: 10pt;
+                border-collapse: collapse;
+            }
+            
+            .performance-table th,
+            .performance-table td {
+                border: 1px solid #000;
+                padding: 8px;
             }
             
             .citation-box {
                 background: #f8f9fa !important;
-                border: 1px solid #dee2e6;
-            }
-            
-            .citation-box code {
-                color: #333 !important;
+                border: 2px solid #000;
+                page-break-inside: avoid;
             }
         }
     `;
     document.head.appendChild(printStyle);
-});
-
-// Copy citation to clipboard
-function copyToClipboard() {
-    const citationText = `@article{kalfaoglu2025topobda,
-    title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
-    author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
-    journal={Neurocomputing},
-    year={2025},
-    publisher={Elsevier}
-}`;
-
-    // Try using the modern Clipboard API first
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(citationText).then(function() {
-            showCopyFeedback('Citation copied to clipboard!');
-        }).catch(function(err) {
-            // Fallback to older method
-            fallbackCopyTextToClipboard(citationText);
-        });
-    } else {
-        // Fallback for older browsers
-        fallbackCopyTextToClipboard(citationText);
-    }
 }
 
-// Fallback copy method for older browsers
-function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    
-    // Avoid scrolling to bottom
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.position = "fixed";
-    
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-        const successful = document.execCommand('copy');
-        if (successful) {
-            showCopyFeedback('Citation copied to clipboard!');
-        } else {
-            showCopyFeedback('Failed to copy citation');
-        }
-    } catch (err) {
-        showCopyFeedback('Failed to copy citation');
-    }
-    
-    document.body.removeChild(textArea);
+// Utility functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-// Show feedback when copying
-function showCopyFeedback(message) {
-    const feedback = document.createElement('div');
-    feedback.textContent = message;
-    feedback.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #28a745;
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 5px;
-        z-index: 10000;
-        font-weight: 500;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-    `;
-    
-    document.body.appendChild(feedback);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        feedback.style.opacity = '0';
-        feedback.style.transform = 'translateY(-20px)';
-        setTimeout(() => {
-            document.body.removeChild(feedback);
-        }, 300);
-    }, 3000);
-}
+// Export functions for global access
+window.copyToClipboard = copyToClipboard;
+window.showCopyFeedback = showCopyFeedback;

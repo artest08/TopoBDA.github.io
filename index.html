@@ -3,210 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding</title>
+    <title>TopoBDA: Bezier Deformable Attention for Road Topology</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <!-- Header Section -->
+    <header class="hero">
         <div class="container">
-            <h1>TopoBDA</h1>
-            <p class="subtitle">Towards Bezier Deformable Attention for Road Topology Understanding</p>
-            <p class="authors">
-                <span class="author">Muhammet Esat Kalfaoglu</span><sup>1,2</sup>, 
-                <span class="author">Halil Ibrahim Ozturk</span><sup>2</sup>, 
-                <span class="author">Ozsel Kilinc</span><sup>2</sup>, 
-                <span class="author">Alptekin Temizel</span><sup>1</sup>
-            </p>
-            <p class="affiliations">
-                <sup>1</sup>Middle East Technical University &nbsp;&nbsp;&nbsp; <sup>2</sup>Togg/Trutek AI Team
-            </p>
-            <nav>
-                <a href="#abstract">Abstract</a>
-                <a href="#method">Method</a>
-                <a href="#results">Results</a>
-                <a href="#comparison">Comparison</a>
-                <a href="#paper">Paper</a>
-            </nav>
+            <div class="hero-content">
+                <h1 class="hero-title">TopoBDA</h1>
+                <p class="hero-subtitle">Towards Bezier Deformable Attention for Road Topology Understanding</p>
+                <div class="authors">
+                    <span class="author">Muhammet Esat Kalfaoglu*</span>
+                    <span class="author">Halil Ibrahim Ozturk</span>
+                    <span class="author">Ozsel Kilinc</span>
+                    <span class="author">Alptekin Temizel</span>
+                </div>
+                <div class="affiliations">
+                    <span class="affiliation">Middle East Technical University • Togg/Trutek AI Team</span>
+                </div>
+                <div class="action-buttons">
+                    <a href="https://arxiv.org/abs/2412.18951" class="btn btn-primary" target="_blank">
+                        📄 Paper
+                    </a>
+                    <a href="#citation" class="btn btn-secondary">
+                        📋 Cite
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <section id="hero">
-            <div class="hero-content">
-                <h2>State-of-the-Art Road Topology Understanding with Bezier Deformable Attention</h2>
-                <p>TopoBDA introduces a novel Bezier Deformable Attention mechanism for enhanced centerline detection and road topology understanding in autonomous driving. Our method achieves state-of-the-art results on OpenLane-V1 and OpenLane-V2 datasets through innovative attention mechanisms and multi-modal sensor fusion.</p>
-                <div class="buttons">
-                    <a href="TopoBDA_neurocomputing.pdf" class="btn btn-primary" target="_blank">📄 Read Paper</a>
-                    <a href="#method" class="btn btn-secondary">🔍 Learn More</a>
+    <!-- Abstract -->
+    <section class="section" id="abstract">
+        <div class="container">
+            <h2>Abstract</h2>
+            <div class="abstract-content">
+                <p>
+                    Understanding road topology is crucial for autonomous driving. This paper introduces <strong>TopoBDA</strong> 
+                    (Topology with Bezier Deformable Attention), a novel approach that enhances road topology comprehension 
+                    by leveraging Bezier Deformable Attention (BDA). TopoBDA processes multi-camera 360-degree imagery to 
+                    generate Bird's Eye View (BEV) features, which are refined through a transformer decoder employing BDA. 
+                    BDA utilizes Bezier control points to drive the deformable attention mechanism, improving the detection 
+                    and representation of elongated and thin polyline structures, such as lane centerlines.
+                </p>
+                <p>
+                    Additionally, TopoBDA integrates two auxiliary components: an instance mask formulation loss and a 
+                    one-to-many set prediction loss strategy, to further refine centerline detection and enhance road 
+                    topology understanding. Experimental evaluations on the OpenLane-V2 dataset demonstrate that TopoBDA 
+                    outperforms existing methods, achieving state-of-the-art results in centerline detection and topology 
+                    reasoning. TopoBDA also achieves the best results on the OpenLane-V1 dataset in 3D lane detection. 
+                    Further experiments on integrating multi-modal data—such as LiDAR, radar, and SDMap—show that multimodal 
+                    inputs can further enhance performance in road topology understanding.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Highlights -->
+    <section class="section" id="highlights-research">
+        <div class="container">
+            <h2>Research Highlights</h2>
+            <div class="highlights-research-grid">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🔗</div>
+                    <h3>Novel MPDA Integration to Bezier Structures</h3>
+                    <p>First-time integration of Multi-Point Deformable Attention (MPDA) into Bezier keypoint-dependent transformer decoders, enhancing centerline detection for elongated polyline structures.</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🎯</div>
+                    <h3>Bezier Deformable Attention (BDA)</h3>
+                    <p>Novel attention mechanism utilizing Bezier control points as reference points, achieving superior performance with reduced computational complexity compared to traditional MPDA approaches.</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🔧</div>
+                    <h3>Instance Mask Formulation</h3>
+                    <p>Indirect auxiliary supervision through instance mask prediction and Mask-L1 mix matcher, improving centerline detection without inference overhead.</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🌐</div>
+                    <h3>Multi-modal Fusion Analysis</h3>
+                    <p>First comprehensive evaluation of camera, LiDAR, radar, and SDMap integration for road topology understanding, achieving state-of-the-art multi-modal performance.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="abstract">
-            <h2>Abstract</h2>
-            <p>
-                Understanding road topology is crucial for autonomous driving. This paper introduces TopoBDA (Topology with Bezier Deformable Attention), a novel approach that enhances road topology comprehension by leveraging Bezier Deformable Attention (BDA). TopoBDA processes multi-camera 360-degree imagery to generate Bird's Eye View (BEV) features, which are refined through a transformer decoder employing BDA. BDA utilizes Bezier control points to drive the deformable attention mechanism, improving the detection and representation of elongated and thin polyline structures, such as lane centerlines.
-            </p>
-            <p>
-                Additionally, TopoBDA integrates two auxiliary components: an instance mask formulation loss and a one-to-many set prediction loss strategy, to further refine centerline detection and enhance road topology understanding. Experimental evaluations on the OpenLane-V2 dataset demonstrate that TopoBDA outperforms existing methods, achieving state-of-the-art results in centerline detection and topology reasoning. TopoBDA also achieves the best results on the OpenLane-V1 dataset in 3D lane detection.
-            </p>
-
-            <div class="highlights">
-                <h3>Research Highlights</h3>
-                <ul>
-                    <li><strong>Novel MPDA integration</strong> into Bezier regression improves road topology understanding</li>
-                    <li><strong>Bezier Deformable Attention</strong> enhances road topology understanding with minimal computational overhead</li>
-                    <li><strong>Instance mask formulation</strong> boosts road topology understanding performance</li>
-                    <li><strong>Multi-modal fusion</strong> achieves state-of-the-art road topology understanding</li>
-                    <li><strong>One-to-many set prediction loss</strong> analyzed for road topology understanding for the first time</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="method">
+    <!-- Architecture Overview -->
+    <section class="section" id="architecture">
+        <div class="container">
             <h2>Method Overview</h2>
-            <div class="method-overview">
-                <p>TopoBDA enhances road topology understanding through a novel Bezier Deformable Attention mechanism. The architecture processes multi-camera 360-degree imagery to extract Bird's Eye View features, which are then refined using a transformer decoder with our proposed attention mechanism.</p>
+            <div class="figure-container">
+                <div class="image-container">
+                    <img src="images/topoBDA.png" alt="TopoBDA Architecture - Multi-camera BEV feature extraction with Bezier Deformable Attention" class="research-figure architecture-figure" loading="lazy">
+                </div>
+                <div class="figure-caption">
+                    <strong>Figure 1: TopoBDA Architecture.</strong> Multi-camera images are processed through BEV feature extraction, 
+                    then refined using a transformer decoder with novel Bezier Deformable Attention to predict precise centerline instances.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Innovation: Bezier Deformable Attention -->
+    <section class="section" id="innovation">
+        <div class="container">
+            <h2>Key Innovation: Bezier Deformable Attention</h2>
+            <div class="innovation-grid">
+                <div class="innovation-item">
+                    <h3>Attention Evolution</h3>
+                    <div class="figure-container">
+                        <div class="image-container">
+                            <img src="images/spda_vs_mpda.png" alt="Attention Mechanism Evolution: SPDA to MPDA to BDA comparison" class="research-figure comparison-figure" loading="lazy">
+                        </div>
+                        <div class="figure-caption">
+                            <strong>Figure 2: Attention Mechanism Evolution.</strong> From Single-Point (SPDA) to Multi-Point (MPDA) 
+                            to our novel Bezier Deformable Attention (BDA) that directly uses control points.
+                        </div>
+                    </div>
+                </div>
+                <div class="innovation-item">
+                    <h3>Implementation Efficiency</h3>
+                    <div class="figure-container">
+                        <div class="image-container">
+                            <img src="images/msda_vs_bda.png" alt="BDA vs MPDA Implementation Efficiency Comparison" class="research-figure comparison-figure" loading="lazy">
+                        </div>
+                        <div class="figure-caption">
+                            <strong>Figure 3: BDA vs MPDA Implementation.</strong> BDA eliminates matrix multiplication overhead by directly 
+                            using Bezier control points as attention reference points.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section -->
+    <section class="section" id="methodology">
+        <div class="container">
+            <h2>Methodology</h2>
+            
+            <div class="methodology-grid">
+                <div class="method-card">
+                    <h3>🏗️ Instance Query Architecture</h3>
+                    <p>Multi-camera 360-degree imagery processed through BEV feature extraction, refined via transformer decoder with sparse query approach where each query represents a centerline instance rather than individual points.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h3>📐 Bezier Control Point Regression</h3>
+                    <p>Compact polyline representation through Bezier control points, enabling efficient centerline modeling via matrix multiplication operations while reducing computational complexity at regression heads.</p>
+                </div>
+                
+                <div class="method-card">
+                    <h3>🎯 Auxiliary Training Components</h3>
+                    <p>Instance mask prediction and Mask-L1 mix matcher during training enhance centerline detection accuracy. One-to-many set prediction loss improves training convergence without inference overhead.</p>
+                </div>
             </div>
             
-            <div class="method-grid">
-                <div class="method-item">
-                    <h3>TopoBDA Architecture</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/topoBDA.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/topoBDA.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="method-description">
-                        Overview of the TopoBDA architecture based on instance query concept. BEV features from multiple camera images are fed into the transformer decoder, which outputs Bezier control points converted into centerline instances via matrix multiplication.
-                    </p>
+            <!-- BDA Layers Visualization -->
+            <div class="figure-container">
+                <div class="image-container">
+                    <img src="images/BDA_layers.png" alt="TopoBDA Layers with Bezier Deformable Attention - Iterative refinement across decoder layers" class="research-figure layers-figure" loading="lazy">
                 </div>
-
-                <div class="method-item">
-                    <h3>Attention Mechanisms Comparison</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/attention_types.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/attention_types.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="method-description">
-                        Comparison of various cross-attention mechanisms within the decoder architecture for polyline structures, including our novel Bezier Deformable Attention (BDA).
-                    </p>
-                </div>
-
-                <div class="method-item">
-                    <h3>BDA Layers Architecture</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/BDA_layers.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/BDA_layers.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="method-description">
-                        Detailed view of the Bezier Deformable Attention layers and their integration within the transformer decoder architecture.
-                    </p>
-                </div>
-
-                <div class="method-item">
-                    <h3>SPDA vs MPDA Analysis</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/spda_vs_mpda.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/spda_vs_mpda.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="method-description">
-                        Comparative analysis between Single-Point Deformable Attention (SPDA) and Multi-Point Deformable Attention (MPDA) mechanisms.
-                    </p>
-                </div>
-
-                <div class="method-item">
-                    <h3>Multi-Modal Sensor Fusion</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/sensor_fusion.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/sensor_fusion.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="method-description">
-                        Integration strategy for multi-modal sensor data including camera, LiDAR, radar, and SDMap for enhanced road topology understanding.
-                    </p>
-                </div>
-
-                <div class="method-item">
-                    <h3>Mask Head Implementation</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/mask_head.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/mask_head.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="method-description">
-                        Instance mask formulation architecture used as auxiliary loss to enhance centerline detection performance.
-                    </p>
+                <div class="figure-caption">
+                    <strong>Figure 6: BDA Layers Visualization.</strong> This figure shows the layers of TopoBDA, each driven by 
+                    Bezier Deformable Attention (BDA) using control points predicted through iterative refinement. The iterative 
+                    refinement process improves prediction accuracy across decoder layers.
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="results">
+    <!-- Experimental Results -->
+    <section class="section" id="results">
+        <div class="container">
             <h2>Experimental Results</h2>
-            <div class="results-overview">
-                <p>Our experimental evaluation demonstrates the effectiveness of TopoBDA across multiple benchmarks. We conduct comprehensive ablation studies on attention mechanisms, instance mask formulation, sensor fusion, and compare against state-of-the-art methods on OpenLane-V1 and OpenLane-V2 datasets.</p>
-            </div>
-
-            <div class="results-grid">
-                <div class="result-item">
-                    <h3>Dataset Visualization</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/dataset.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/dataset.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="result-description">
-                        Perspective-view (PV) and bird's-eye-view (BEV) samples from the OpenLane-V2 dataset showing centerline instances and topological relationships.
-                    </p>
+            
+            <!-- State-of-the-art Comparison -->
+            <div class="results-container">
+                <h3>🏆 State-of-the-Art Performance on OpenLane-V2 (Subset-A)</h3>
+                <div class="table-responsive">
+                    <table class="performance-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Sensor</th>
+                                <th>DET<sub>l</sub></th>
+                                <th>DET<sub>t</sub></th>
+                                <th>TOP<sub>ll</sub></th>
+                                <th>TOP<sub>lt</sub></th>
+                                <th>OLS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TopoNet</td>
+                                <td>C</td>
+                                <td>28.6</td>
+                                <td>48.6</td>
+                                <td>10.9</td>
+                                <td>23.9</td>
+                                <td>39.8</td>
+                            </tr>
+                            <tr>
+                                <td>TopoMLP</td>
+                                <td>C</td>
+                                <td>28.5</td>
+                                <td>49.5</td>
+                                <td>21.7</td>
+                                <td>26.9</td>
+                                <td>44.1</td>
+                            </tr>
+                            <tr>
+                                <td>TopoFormer</td>
+                                <td>C</td>
+                                <td>34.7</td>
+                                <td>48.2</td>
+                                <td>24.1</td>
+                                <td>29.5</td>
+                                <td>46.3</td>
+                            </tr>
+                            <tr>
+                                <td>TopoMaskV2</td>
+                                <td>C</td>
+                                <td>34.5</td>
+                                <td>53.8</td>
+                                <td>24.5</td>
+                                <td>35.6</td>
+                                <td>49.4</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TopoBDA (Ours)</strong></td>
+                                <td><strong>C</strong></td>
+                                <td><strong>38.9</strong></td>
+                                <td><strong>54.3</strong></td>
+                                <td><strong>27.6</strong></td>
+                                <td><strong>37.3</strong></td>
+                                <td><strong>51.7</strong></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TopoBDA (Ours)</strong></td>
+                                <td><strong>C + L</strong></td>
+                                <td><strong>47.3</strong></td>
+                                <td><strong>54.0</strong></td>
+                                <td><strong>35.5</strong></td>
+                                <td><strong>41.9</strong></td>
+                                <td><strong>56.4</strong></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TopoBDA (Ours)</strong></td>
+                                <td><strong>C + SD</strong></td>
+                                <td><strong>42.7</strong></td>
+                                <td><strong>52.4</strong></td>
+                                <td><strong>34.3</strong></td>
+                                <td><strong>41.7</strong></td>
+                                <td><strong>54.6</strong></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TopoBDA (Ours)</strong></td>
+                                <td><strong>C + L + SD</strong></td>
+                                <td><strong>52.0</strong></td>
+                                <td><strong>52.4</strong></td>
+                                <td><strong>38.5</strong></td>
+                                <td><strong>45.3</strong></td>
+                                <td><strong>58.4</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="result-item">
-                    <h3>Multi-View Perspective Samples</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/all_views_pv_samples.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/all_views_pv_samples.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="result-description">
-                        Comprehensive multi-view perspective samples demonstrating the complexity of road topology understanding across different viewpoints.
-                    </p>
-                </div>
-
-                <div class="result-item">
-                    <h3>Bird's Eye View Samples</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/bev_samples.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/bev_samples.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="result-description">
-                        BEV domain visualization showing the effectiveness of our approach in detecting and understanding road topology structures.
-                    </p>
-                </div>
-
-                <div class="result-item">
-                    <h3>MSDA vs BDA Comparison</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/msda_vs_bda.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/msda_vs_bda.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="result-description">
-                        Comparative analysis between Multi-Scale Deformable Attention (MSDA) and our proposed Bezier Deformable Attention (BDA) mechanism.
-                    </p>
-                </div>
-
-                <div class="result-item">
-                    <h3>Closed-Loop Fusion Analysis</h3>
-                    <div class="pdf-viewer">
-                        <embed src="images/clsd_fuse_analysis.pdf" type="application/pdf" width="100%" height="400">
-                        <p><a href="images/clsd_fuse_analysis.pdf" target="_blank">View Full Size</a></p>
-                    </div>
-                    <p class="result-description">
-                        Visual demonstration showing the impact of LiDAR and SDMap integration with camera sensors in the BEV domain for enhanced performance.
-                    </p>
-                </div>
-            </div>
-
-            <div class="performance-tables">
-                <h3>Key Performance Results</h3>
                 
-                <div class="table-container">
-                    <h4>Impact of Instance Mask Formulation (OpenLane-V2 Subset-A)</h4>
-                    <table class="results-table">
+                <h3>🏆 State-of-the-Art Performance on OpenLane-V1 (3D Lane Detection)</h3>
+                <div class="table-responsive">
+                    <table class="performance-table">
+                        <thead>
+                            <tr>
+                                <th>Distance</th>
+                                <th>Method</th>
+                                <th>Backbone</th>
+                                <th>F1-Score ↑</th>
+                                <th>X-error near (m) ↓</th>
+                                <th>X-error far (m) ↓</th>
+                                <th>Z-error near (m) ↓</th>
+                                <th>Z-error far (m) ↓</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 2px solid #ddd;">
+                                <td rowspan="7" style="vertical-align: middle; font-weight: bold;">1.5m</td>
+                                <td>PersFormer</td>
+                                <td>ResNet-50</td>
+                                <td>52.7</td>
+                                <td>0.307</td>
+                                <td>0.319</td>
+                                <td>0.083</td>
+                                <td>0.117</td>
+                            </tr>
+                            <tr>
+                                <td>Anchor3DLane</td>
+                                <td>ResNet-50</td>
+                                <td>57.5</td>
+                                <td>0.229</td>
+                                <td><strong>0.243</strong></td>
+                                <td>0.079</td>
+                                <td>0.106</td>
+                            </tr>
+                            <tr>
+                                <td>GroupLane</td>
+                                <td>ResNet-50</td>
+                                <td>60.2</td>
+                                <td>0.371</td>
+                                <td>0.476</td>
+                                <td>0.220</td>
+                                <td>0.357</td>
+                            </tr>
+                            <tr>
+                                <td>LaneCPP</td>
+                                <td>EffNet-B7</td>
+                                <td>60.3</td>
+                                <td>0.264</td>
+                                <td>0.310</td>
+                                <td>0.077</td>
+                                <td>0.117</td>
+                            </tr>
+                            <tr>
+                                <td>LATR</td>
+                                <td>ResNet-50</td>
+                                <td>61.9</td>
+                                <td><strong>0.219</strong></td>
+                                <td style="text-decoration: underline;">0.259</td>
+                                <td style="text-decoration: underline;">0.075</td>
+                                <td style="text-decoration: underline;">0.104</td>
+                            </tr>
+                            <tr>
+                                <td>PVALane</td>
+                                <td>ResNet-50</td>
+                                <td style="text-decoration: underline;">62.7</td>
+                                <td>0.232</td>
+                                <td style="text-decoration: underline;">0.259</td>
+                                <td>0.092</td>
+                                <td>0.118</td>
+                            </tr>
+                            <tr class="highlight" style="border-bottom: 2px solid #ddd;">
+                                <td><strong>TopoBDA (Ours)</strong></td>
+                                <td><strong>ResNet-50</strong></td>
+                                <td><strong>63.9</strong></td>
+                                <td style="text-decoration: underline;"><strong>0.224</strong></td>
+                                <td><strong>0.243</strong></td>
+                                <td><strong>0.069</strong></td>
+                                <td><strong>0.101</strong></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="vertical-align: middle; font-weight: bold;">0.5m</td>
+                                <td>PersFormer</td>
+                                <td>ResNet-50</td>
+                                <td>43.2</td>
+                                <td>0.229</td>
+                                <td>0.245</td>
+                                <td>0.078</td>
+                                <td>0.106</td>
+                            </tr>
+                            <tr>
+                                <td>DV-3DLane</td>
+                                <td>ResNet-34</td>
+                                <td>52.9</td>
+                                <td>0.173</td>
+                                <td>0.212</td>
+                                <td style="text-decoration: underline;">0.069</td>
+                                <td style="text-decoration: underline;">0.098</td>
+                            </tr>
+                            <tr>
+                                <td>LATR</td>
+                                <td>ResNet-50</td>
+                                <td style="text-decoration: underline;">54.0</td>
+                                <td style="text-decoration: underline;">0.171</td>
+                                <td style="text-decoration: underline;">0.201</td>
+                                <td>0.072</td>
+                                <td>0.099</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TopoBDA (Ours)</strong></td>
+                                <td><strong>ResNet-50</strong></td>
+                                <td><strong>57.9</strong></td>
+                                <td><strong>0.157</strong></td>
+                                <td><strong>0.179</strong></td>
+                                <td><strong>0.067</strong></td>
+                                <td><strong>0.087</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Instance Mask Formulation Ablation</h3>
+                <div class="table-responsive">
+                    <table class="performance-table">
                         <thead>
                             <tr>
                                 <th>IMAL</th>
@@ -219,24 +408,24 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>-</td>
-                                <td>-</td>
+                                <td>✗</td>
+                                <td>✗</td>
                                 <td>37.0</td>
                                 <td>39.8</td>
                                 <td>29.0</td>
                                 <td>43.6</td>
                             </tr>
-                            <tr class="highlight">
+                            <tr>
                                 <td>✓</td>
-                                <td>-</td>
-                                <td>40.7</td>
-                                <td>42.1</td>
-                                <td>32.4</td>
-                                <td>46.6</td>
+                                <td>✗</td>
+                                <td style="text-decoration: underline;">40.7</td>
+                                <td style="text-decoration: underline;">42.1</td>
+                                <td style="text-decoration: underline;">32.4</td>
+                                <td style="text-decoration: underline;">46.6</td>
                             </tr>
-                            <tr class="best">
-                                <td>✓</td>
-                                <td>✓</td>
+                            <tr class="highlight">
+                                <td><strong>✓</strong></td>
+                                <td><strong>✓</strong></td>
                                 <td><strong>40.8</strong></td>
                                 <td><strong>45.8</strong></td>
                                 <td><strong>32.9</strong></td>
@@ -244,16 +433,18 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p class="table-note">IMAL: Instance Mask Auxiliary Loss, ML1M: Mask-L1 Mix Matcher</p>
+                    <p class="table-caption">
+                        <strong>IMAL</strong>: Instance Mask Auxiliary Loss | <strong>ML1M</strong>: Mask-L1 Mix Matcher<br>
+                        Results show significant improvements from instance mask formulation: +3.7 points in DET<sub>l</sub> and +3.3 points in OLS<sub>l</sub> with IMAL.
+                    </p>
                 </div>
 
-                <div class="table-container">
-                    <h4>Sensor Fusion Results (OpenLane-V2)</h4>
-                    <table class="results-table">
+                <h3>Attention Mechanism Ablation</h3>
+                <div class="table-responsive">
+                    <table class="performance-table">
                         <thead>
                             <tr>
-                                <th>Subset</th>
-                                <th>Configuration</th>
+                                <th>Attention Type</th>
                                 <th>DET<sub>l</sub></th>
                                 <th>DET<sub>l_ch</sub></th>
                                 <th>TOP<sub>ll</sub></th>
@@ -262,194 +453,144 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td rowspan="5">A</td>
-                                <td>Camera</td>
-                                <td>38.9</td>
-                                <td>39.2</td>
-                                <td>29.4</td>
+                                <td>SA (Standard Attention)</td>
+                                <td>34.5</td>
+                                <td>38.4</td>
+                                <td>25.1</td>
+                                <td>41.0</td>
+                            </tr>
+                            <tr>
+                                <td>MA (Masked Attention)</td>
+                                <td>35.8</td>
+                                <td>40.2</td>
+                                <td>26.9</td>
+                                <td>42.6</td>
+                            </tr>
+                            <tr>
+                                <td>SPDA (Single-Point Deformable Attention)</td>
+                                <td>38.3</td>
+                                <td>39.8</td>
+                                <td>29.5</td>
                                 <td>44.1</td>
                             </tr>
                             <tr>
-                                <td>Camera + SDMap</td>
-                                <td>42.7</td>
-                                <td>48.0</td>
-                                <td>35.7</td>
-                                <td>50.1</td>
+                                <td>MPDA4 (Multi-Point Deformable Attention)</td>
+                                <td>40.2</td>
+                                <td>45.0</td>
+                                <td>32.6</td>
+                                <td>47.4</td>
                             </tr>
                             <tr>
-                                <td>Camera + LiDAR</td>
-                                <td>46.5</td>
-                                <td>49.0</td>
-                                <td>36.7</td>
-                                <td>52.0</td>
+                                <td>MPDA16 (16-Point Deformable Attention)</td>
+                                <td style="text-decoration: underline;">40.3</td>
+                                <td style="text-decoration: underline;">45.1</td>
+                                <td style="text-decoration: underline;">32.7</td>
+                                <td style="text-decoration: underline;">47.5</td>
                             </tr>
                             <tr class="highlight">
-                                <td>Camera + LiDAR†</td>
-                                <td>47.3</td>
-                                <td>51.2</td>
-                                <td>37.3</td>
-                                <td>53.2</td>
-                            </tr>
-                            <tr class="best">
-                                <td>Camera + LiDAR† + SDMap</td>
-                                <td><strong>52.0</strong></td>
-                                <td><strong>52.8</strong></td>
-                                <td><strong>40.0</strong></td>
-                                <td><strong>56.0</strong></td>
-                            </tr>
-                            <tr>
-                                <td rowspan="4">B</td>
-                                <td>Camera</td>
-                                <td>45.1</td>
-                                <td>45.1</td>
-                                <td>35.6</td>
-                                <td>49.9</td>
-                            </tr>
-                            <tr>
-                                <td>Camera + Radar</td>
-                                <td>49.4</td>
-                                <td>52.8</td>
-                                <td>38.6</td>
-                                <td>54.8</td>
-                            </tr>
-                            <tr class="highlight">
-                                <td>Camera + LiDAR</td>
-                                <td>57.5</td>
-                                <td>59.4</td>
-                                <td>46.0</td>
-                                <td>61.6</td>
-                            </tr>
-                            <tr class="best">
-                                <td>Camera + LiDAR†</td>
-                                <td><strong>57.7</strong></td>
-                                <td><strong>60.0</strong></td>
-                                <td><strong>46.7</strong></td>
-                                <td><strong>62.0</strong></td>
+                                <td><strong>BDA (Bezier Deformable Attention)</strong></td>
+                                <td><strong>40.8</strong></td>
+                                <td><strong>45.8</strong></td>
+                                <td><strong>32.9</strong></td>
+                                <td><strong>48.0</strong></td>
                             </tr>
                         </tbody>
                     </table>
-                    <p class="table-note">† Configuration with LiDAR encoder (SECOND)</p>
                 </div>
-            </div>
-        </section>
-
-        <section id="comparison">
-            <h2>State-of-the-Art Comparison</h2>
-            <div class="comparison-overview">
-                <p>TopoBDA achieves state-of-the-art results on both OpenLane-V1 and OpenLane-V2 datasets, demonstrating superior performance in centerline detection and road topology understanding across various evaluation metrics.</p>
-            </div>
-
-            <div class="sota-results">
-                <div class="sota-item">
-                    <h3>OpenLane-V2 Performance</h3>
-                    <p class="performance-highlight">
-                        🏆 <strong>State-of-the-art results</strong> achieved on OpenLane-V2 dataset with camera-only and multi-modal configurations
-                    </p>
-                    <ul class="achievement-list">
-                        <li><strong>Camera-only:</strong> Best performance in centerline detection metrics</li>
-                        <li><strong>Multi-modal:</strong> Superior results with LiDAR + Camera + SDMap fusion</li>
-                        <li><strong>Topology reasoning:</strong> Enhanced understanding of road connectivity</li>
-                    </ul>
-                </div>
-
-                <div class="sota-item">
-                    <h3>OpenLane-V1 Performance</h3>
-                    <p class="performance-highlight">
-                        🥇 <strong>Best results</strong> on OpenLane-V1 dataset for 3D lane detection
-                    </p>
-                    <ul class="achievement-list">
-                        <li><strong>F1 Score:</strong> Superior performance in 3D lane detection</li>
-                        <li><strong>Distance accuracy:</strong> Improved precision at various detection ranges</li>
-                        <li><strong>Robustness:</strong> Better performance across different weather conditions</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="key-innovations">
-                <h3>Key Technical Innovations</h3>
-                <div class="innovations-grid">
-                    <div class="innovation-item">
-                        <h4>🎯 Bezier Deformable Attention</h4>
-                        <p>Novel attention mechanism using Bezier control points for improved polyline structure detection with minimal computational overhead.</p>
-                    </div>
-                    <div class="innovation-item">
-                        <h4>🔗 Multi-Point Deformable Attention</h4>
-                        <p>First integration of MPDA into Bezier keypoint-dependent transformer decoders for enhanced centerline detection.</p>
-                    </div>
-                    <div class="innovation-item">
-                        <h4>🎭 Instance Mask Formulation</h4>
-                        <p>Auxiliary loss strategy that improves centerline detection performance through indirect mask supervision.</p>
-                    </div>
-                    <div class="innovation-item">
-                        <h4>🌐 Multi-Modal Fusion</h4>
-                        <p>First comprehensive evaluation of sensor fusion (LiDAR, radar, SDMap) specifically for road topology understanding.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="paper">
-            <h2>Publication & Resources</h2>
-            <div class="paper-section">
-                <div class="paper-info">
-                    <h3>📄 Full Paper</h3>
-                    <p class="paper-title">TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding</p>
-                    <p class="journal-info">Published in <strong>Neurocomputing</strong>, 2025</p>
-                    <p class="paper-description">
-                        Read the complete research paper for detailed methodology, comprehensive experiments, ablation studies, and theoretical analysis of our novel Bezier Deformable Attention mechanism.
-                    </p>
-                    <div class="paper-actions">
-                        <a href="TopoBDA_neurocomputing.pdf" class="btn btn-primary btn-large" target="_blank">
-                            📄 Download PDF
-                        </a>
-                        <a href="#abstract" class="btn btn-secondary">
-                            📋 View Abstract
-                        </a>
-                    </div>
-                </div>
-
-                <div class="citation-section">
-                    <h4>📝 Citation</h4>
-                    <div class="citation-box">
-                        <pre><code>@article{kalfaoglu2025topobda,
-    title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
-    author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
-    journal={Neurocomputing},
-    year={2025},
-    publisher={Elsevier}
-}</code></pre>
-                        <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Citation</button>
-                    </div>
-                </div>
-
-                <div class="keywords-section">
-                    <h4>🔍 Keywords</h4>
-                    <div class="keywords">
-                        <span class="keyword">Road Topology Understanding</span>
-                        <span class="keyword">Centerline Detection</span>
-                        <span class="keyword">Autonomous Driving</span>
-                        <span class="keyword">Automated HDMap Generation</span>
-                        <span class="keyword">3D Lane Detection</span>
-                        <span class="keyword">Bezier Deformable Attention</span>
-                        <span class="keyword">Multi-Modal Fusion</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 TopoBDA Research Project. All rights reserved.</p>
-            <p><strong>TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding</strong></p>
-            <p>Middle East Technical University • Togg/Trutek AI Team</p>
-            <div class="footer-links">
-                <a href="TopoBDA_neurocomputing.pdf" target="_blank">Paper</a>
-                <a href="mailto:esat.kalfaoglu@metu.edu.tr">Contact</a>
-                <a href="https://github.com/artest08/TopoBDA.github.io" target="_blank">GitHub</a>
             </div>
         </div>
+    </section>
+
+    <!-- Visual Results -->
+    <section class="section" id="visual-results">
+        <div class="container">
+            <h2>Visual Results</h2>
+            
+            <!-- Closed-loop and Fusion Analysis -->
+            <div class="figure-container">
+                <div class="image-container">
+                    <img src="images/clsd_fuse_analysis.png" alt="TopoBDA Closed-loop Analysis and Multi-modal Fusion Results" class="research-figure analysis-figure" loading="lazy">
+                </div>
+                <div class="figure-caption">
+                    <strong>Figure 5: Multi-modal Fusion Analysis.</strong> Comprehensive performance analysis demonstrating the impact 
+                    of different sensor modalities (Camera, LiDAR, Radar) and SDMap integration in multi-modal fusion scenarios. 
+                    TopoBDA achieves superior performance across all multi-modal evaluation configurations, showing the effectiveness 
+                    of sensor fusion for road topology understanding.
+                </div>
+            </div>
+
+            <!-- Dataset Overview -->
+            <div class="figure-container">
+                <div class="image-container">
+                    <img src="images/dataset.png" alt="OpenLane-V2 Dataset Overview - Perspective and Bird's Eye View samples with annotations" class="research-figure dataset-figure" loading="lazy">
+                </div>
+                <div class="figure-caption">
+                    <strong>Figure 7: Dataset Ground Truth Visualization.</strong> OpenLane-V2 dataset samples showing perspective view (PV) and 
+                    bird's eye view (BEV) with ground truth annotations for centerline detection and topological relationships. 
+                    This figure displays the reference annotations used for training and evaluation, not model predictions.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="section" id="conclusion">
+        <div class="container">
+            <h2>Conclusion</h2>
+            <div class="conclusion-content">
+                <p>
+                    Experimental evaluations demonstrate that <strong>TopoBDA achieves state-of-the-art performance</strong> 
+                    across both subsets of the OpenLane-V2 dataset. Specifically, TopoBDA surpasses existing methods with a 
+                    <strong>DET<sub>l</sub> score of 38.9</strong> and an <strong>OLS score of 51.7</strong> in Subset-A, 
+                    and a <strong>DET<sub>l</sub> score of 45.1</strong> and an <strong>OLS score of 54.3</strong> in Subset-B.
+                </p>
+                <p>
+                    The integration of multi-modal data significantly boosts performance: fusing camera and LiDAR data increases 
+                    the OLS score in Subset-A from <strong>51.7 to 56.4</strong>, and in Subset-B from <strong>54.3 to 61.7</strong>. 
+                    Further incorporating SDMap alongside camera and LiDAR sensors raises the OLS score in Subset-A to <strong>58.4</strong>. 
+                    These results underscore the effectiveness of TopoBDA in road topology comprehension and highlight the substantial 
+                    benefits of multi-modal fusion.
+                </p>
+                <p>
+                    Additionally, TopoBDA achieves superior results on the OpenLane-V1 benchmark for 3D lane detection, with 
+                    F1-scores of <strong>63.9</strong> at a 1.5m distance and <strong>57.9</strong> at a 0.5m distance. 
+                    This work contributes toward closing existing gaps in HDMap element prediction, offering a unified framework 
+                    for road topology understanding and 3D lane detection in autonomous driving.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation Section -->
+    <section class="section" id="citation">
+        <div class="container">
+            <h2>Citation</h2>
+            <div class="citation-box">
+                <pre id="citation-text">@article{kalfaoglu2024topobda,
+  title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
+  author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
+  journal={Neurocomputing},
+  year={2024},
+  publisher={Elsevier}
+}</pre>
+                <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Citation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TopoBDA Research. All rights reserved.</p>
+            <p>📧 Contact: <a href="mailto:esat.kalfaoglu@metu.edu.tr">esat.kalfaoglu@metu.edu.tr</a></p>
+        </div>
     </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="">
+    </div>
 
     <script src="script.js"></script>
 </body>
