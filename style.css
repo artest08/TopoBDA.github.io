@@ -784,3 +784,277 @@ body {
         max-height: 400px;
     }
 }
+
+/* Video Section Styles */
+.video-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e6ed;
+}
+
+.video-section h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.video-container {
+    margin-bottom: 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+}
+
+.demo-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 600px;
+    object-fit: contain;
+}
+
+.video-caption {
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    background: #f8f9fa;
+}
+
+.video-caption strong {
+    color: var(--primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+}
+
+/* Video responsiveness */
+@media (max-width: 768px) {
+    .video-section {
+        margin-top: 2rem;
+    }
+    
+    .video-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .video-container {
+        margin-bottom: 2rem;
+    }
+    
+    .video-caption {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .demo-video {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-caption {
+        padding: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .demo-video {
+        max-height: 300px;
+    }
+}
+
+/* Video Section Styles */
+.video-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e6ed;
+}
+
+.video-section h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.video-notice {
+    background: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    color: #0056b3;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.video-notice a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.video-container {
+    margin-bottom: 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.video-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+}
+
+.video-header h4 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    flex: 1;
+}
+
+.download-link {
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.download-link:hover {
+    background: #218838;
+    text-decoration: none;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+}
+
+.video-wrapper video {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 600px;
+    background: #000;
+}
+
+.video-caption {
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    background: #f8f9fa;
+}
+
+.video-caption strong {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.download-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.download-section h4 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.download-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.download-section li {
+    margin-bottom: 0.5rem;
+}
+
+.download-section a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.download-section a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness for video section */
+@media (max-width: 768px) {
+    .video-section h3 {
+        font-size: 1.5rem;
+    }
+    
+    .video-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .video-header h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .video-caption {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .demo-video {
+        max-height: 400px;
+    }
+    
+    .download-section {
+        padding: 1rem;
+    }
+}

@@ -2,12 +2,11 @@
 
 // Copy citation to clipboard with improved feedback
 function copyToClipboard() {
-    const citationText = `@article{kalfaoglu2025topobda,
-    title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
-    author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
-    journal={Neurocomputing},
-    year={2025},
-    publisher={Elsevier}
+    const citationText = `@article{kalfaoglu2024topobda,
+  title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
+  author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
+  journal={arXiv preprint arXiv:2412.18951},
+  year={2024}
 }`;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -286,31 +285,10 @@ function initScrollAnimations() {
     document.head.appendChild(animationStyle);
 }
 
-// Animate table numbers
+// Animate table numbers - DISABLED to keep values static
 function animateTableNumbers(table) {
-    const numberCells = table.querySelectorAll('td');
-    
-    numberCells.forEach(cell => {
-        const text = cell.textContent.trim();
-        const number = parseFloat(text);
-        
-        if (!isNaN(number) && number > 0) {
-            let current = 0;
-            const increment = number / 30;
-            const duration = 1500;
-            const steps = duration / 50;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= number) {
-                    cell.textContent = number.toFixed(1);
-                    clearInterval(timer);
-                } else {
-                    cell.textContent = current.toFixed(1);
-                }
-            }, 50);
-        }
-    });
+    // Animation disabled - values remain static
+    return;
 }
 
 // Enhanced table interactions

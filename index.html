@@ -85,6 +85,11 @@
                     <h3>Multi-modal Fusion Analysis</h3>
                     <p>First comprehensive evaluation of camera, LiDAR, radar, and SDMap integration for road topology understanding, achieving state-of-the-art multi-modal performance.</p>
                 </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">⚡</div>
+                    <h3>Comprehensive Attention Mechanism Analysis</h3>
+                    <p>Systematic comparative analysis of attention mechanisms for road topology understanding, evaluating computational complexity, runtime efficiency, and performance across Standard, Masked, Single-Point, Multi-Point, and Bezier Deformable Attention with detailed FLOPS and parameter analysis.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -98,8 +103,7 @@
                     <img src="images/topoBDA.png" alt="TopoBDA Architecture - Multi-camera BEV feature extraction with Bezier Deformable Attention" class="research-figure architecture-figure" loading="lazy">
                 </div>
                 <div class="figure-caption">
-                    <strong>Figure 1: TopoBDA Architecture.</strong> Multi-camera images are processed through BEV feature extraction, 
-                    then refined using a transformer decoder with novel Bezier Deformable Attention to predict precise centerline instances.
+                    <strong>Figure 1: TopoBDA Architecture.</strong> Overview of the TopoBDA architecture. The TopoBDA architecture is based on the instance query concept. The extracted BEV features from the multiple camera images are fed into the transformer decoder. The decoder outputs Bezier control points for each query, which are then converted into centerline instances via matrix multiplication. Additionally, each centerline query predicts instance masks, but only during training.
                 </div>
             </div>
         </div>
@@ -117,8 +121,7 @@
                             <img src="images/spda_vs_mpda.png" alt="Attention Mechanism Evolution: SPDA to MPDA to BDA comparison" class="research-figure comparison-figure" loading="lazy">
                         </div>
                         <div class="figure-caption">
-                            <strong>Figure 2: Attention Mechanism Evolution.</strong> From Single-Point (SPDA) to Multi-Point (MPDA) 
-                            to our novel Bezier Deformable Attention (BDA) that directly uses control points.
+                            <strong>Figure 2: Attention Mechanism Evolution.</strong> Comparison of Single-Point Deformable Attention (SPDA) with Multi-Point (MPDA) and Bezier (BDA) Deformable Attention. MPDA and BDA share the same underlying mechanism but differ in the selection of multiple reference points (p_x,p_y).
                         </div>
                     </div>
                 </div>
@@ -129,8 +132,7 @@
                             <img src="images/msda_vs_bda.png" alt="BDA vs MPDA Implementation Efficiency Comparison" class="research-figure comparison-figure" loading="lazy">
                         </div>
                         <div class="figure-caption">
-                            <strong>Figure 3: BDA vs MPDA Implementation.</strong> BDA eliminates matrix multiplication overhead by directly 
-                            using Bezier control points as attention reference points.
+                            <strong>Figure 3: BDA vs MPDA Implementation.</strong> Comparison of Multi-Point Deformable Attention (MPDA) and Bezier Deformable Attention (BDA): MPDA necessitates an additional matrix multiplication block within each transformer decoder. Despite their different input utilizations as reference points, the mechanisms of MPDA and BDA blocks are fundamentally the same.
                         </div>
                     </div>
                 </div>
@@ -166,9 +168,7 @@
                     <img src="images/BDA_layers.png" alt="TopoBDA Layers with Bezier Deformable Attention - Iterative refinement across decoder layers" class="research-figure layers-figure" loading="lazy">
                 </div>
                 <div class="figure-caption">
-                    <strong>Figure 6: BDA Layers Visualization.</strong> This figure shows the layers of TopoBDA, each driven by 
-                    Bezier Deformable Attention (BDA) using control points predicted through iterative refinement. The iterative 
-                    refinement process improves prediction accuracy across decoder layers.
+                    <strong>Figure 6: BDA Layers Visualization.</strong> This figure visualizes the layers of TopoBDA, each driven by Bezier Deformable Attention (BDA) using control points predicted through iterative refinement. Note that iterative refinement is not applicable to the first layer, which uses direct prediction.
                 </div>
             </div>
         </div>
@@ -435,7 +435,7 @@
                     </table>
                     <p class="table-caption">
                         <strong>IMAL</strong>: Instance Mask Auxiliary Loss | <strong>ML1M</strong>: Mask-L1 Mix Matcher<br>
-                        Results show significant improvements from instance mask formulation: +3.7 points in DET<sub>l</sub> and +3.3 points in OLS<sub>l</sub> with IMAL.
+                        Showing significant improvements from instance mask formulation and mask-L1 mix matcher: +3.8 points in DET<sub>l</sub> and +4.4 points in OLS<sub>l</sub>.
                     </p>
                 </div>
 
@@ -512,10 +512,7 @@
                     <img src="images/clsd_fuse_analysis.png" alt="TopoBDA Closed-loop Analysis and Multi-modal Fusion Results" class="research-figure analysis-figure" loading="lazy">
                 </div>
                 <div class="figure-caption">
-                    <strong>Figure 5: Multi-modal Fusion Analysis.</strong> Comprehensive performance analysis demonstrating the impact 
-                    of different sensor modalities (Camera, LiDAR, Radar) and SDMap integration in multi-modal fusion scenarios. 
-                    TopoBDA achieves superior performance across all multi-modal evaluation configurations, showing the effectiveness 
-                    of sensor fusion for road topology understanding.
+                    <strong>Figure 5: Multi-modal Fusion Analysis.</strong> Visual demonstration in the BEV domain showing the impact of lidar and SDMap additions in Subset-A of the OpenLane-V2 dataset. C, SD, and L represent the camera, SDMap, and lidar, respectively. Green polylines indicate the ground truth, and red polylines represent predictions. The circular regions highlight the inaccurate regions compared to other reference BEV images.
                 </div>
             </div>
 
@@ -525,9 +522,60 @@
                     <img src="images/dataset.png" alt="OpenLane-V2 Dataset Overview - Perspective and Bird's Eye View samples with annotations" class="research-figure dataset-figure" loading="lazy">
                 </div>
                 <div class="figure-caption">
-                    <strong>Figure 7: Dataset Ground Truth Visualization.</strong> OpenLane-V2 dataset samples showing perspective view (PV) and 
-                    bird's eye view (BEV) with ground truth annotations for centerline detection and topological relationships. 
-                    This figure displays the reference annotations used for training and evaluation, not model predictions.
+                    <strong>Figure 7: Dataset Ground Truth Visualization.</strong> Perspective-view (PV) and bird's-eye-view (BEV) samples from the OpenLane-V2 dataset. (a) and (d) show centerline instances in PV and BEV domains, respectively, with each color representing a distinct instance. (b) and (c) illustrate centerlines with colors indicating topological relationships between centerlines and traffic elements in PV and BEV. (e) visualizes the topological relationships among different centerlines, where directed arrows indicate connectivity between centerlines.
+                </div>
+            </div>
+
+            <!-- Video Demonstrations -->
+            <div class="video-section">
+                <h3>🎥 TopoBDA Video Demonstrations</h3>
+                
+                <!-- Front View Video -->
+                <div class="video-container">
+                    <h4 style="padding: 1rem; margin: 0; background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                        📹 Front View Perspective - Ground Truth vs Predictions
+                    </h4>
+                    <video controls style="width: 100%; height: auto; display: block; background: #000;">
+                        <source src="visualization_videos/front_view_web_hq.mp4" type="video/mp4">
+                        <p style="padding: 2rem; text-align: center;">
+                            Your browser does not support video playback.
+                        </p>
+                    </video>
+                    <div style="padding: 1rem; background: #f8f9fa; font-size: 0.9rem; line-height: 1.6;">
+                        <strong>Front View Analysis:</strong> Demonstrates TopoBDA's centerline detection performance in the front camera perspective view, comparing ground truth and model predictions. Centerlines are shown in blue colors, while topological relationships between centerlines and traffic elements are indicated by arrows. The arrow colors represent different traffic element types, highlighting the spatial connectivity and semantic understanding capabilities of the model.
+                    </div>
+                </div>
+
+                <!-- Multi-View Video -->
+                <div class="video-container">
+                    <h4 style="padding: 1rem; margin: 0; background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                        📹 Multi-View 360° Coverage - Centerline Instance Predictions
+                    </h4>
+                    <video controls style="width: 100%; height: auto; display: block; background: #000;">
+                        <source src="visualization_videos/multi_view_web_hq.mp4" type="video/mp4">
+                        <p style="padding: 2rem; text-align: center;">
+                            Your browser does not support video playback.
+                        </p>
+                    </video>
+                    <div style="padding: 1rem; background: #f8f9fa; font-size: 0.9rem; line-height: 1.6;">
+                        <strong>Multi-View Analysis:</strong> Showcases TopoBDA's performance across all camera views with comprehensive 360-degree coverage. The visualization focuses on centerline instance predictions, where different instances are distinguished by distinct colors. This demonstration highlights the model's capability to accurately detect and differentiate multiple centerline instances across various viewing perspectives.
+                    </div>
+                </div>
+
+                <!-- BEV All Modalities Video -->
+                <div class="video-container">
+                    <h4 style="padding: 1rem; margin: 0; background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                        📹 Bird's Eye View Analysis - Multi-Modal Fusion
+                    </h4>
+                    <video controls style="width: 100%; height: auto; display: block; background: #000;">
+                        <source src="visualization_videos/bev_all_web_hq.mp4" type="video/mp4">
+                        <p style="padding: 2rem; text-align: center;">
+                            Your browser does not support video playback.
+                        </p>
+                    </video>
+                    <div style="padding: 1rem; background: #f8f9fa; font-size: 0.9rem; line-height: 1.6;">
+                        <strong>BEV Analysis:</strong> Comprehensive Bird's Eye View visualization showcasing nine distinct perspectives with detailed ground truth-prediction correspondences: (1) Ground truth traffic element-centerline topology with highlighted relationships, (2) Ground truth instances with color-coded differentiation, (3) Predicted traffic element-centerline topology with highlighted relationships (correspondence to 1), (4) Predicted instances with color-coded differentiation (correspondence to 2), (5) Ground truth centerline-to-centerline topology relationships, (6) Predicted centerline-to-centerline topology relationships (correspondence to 5), (7) Overlaid prediction comparison analysis, (8) SDMap input visualization, and (9) LiDAR point cloud input visualization. This sequence demonstrates TopoBDA's multi-modal fusion capabilities integrating camera, SDMap, and LiDAR data for robust road topology understanding.
+                    </div>
                 </div>
             </div>
         </div>
@@ -569,9 +617,8 @@
                 <pre id="citation-text">@article{kalfaoglu2024topobda,
   title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
   author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
-  journal={Neurocomputing},
-  year={2024},
-  publisher={Elsevier}
+  journal={arXiv preprint arXiv:2412.18951},
+  year={2024}
 }</pre>
                 <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Citation</button>
             </div>
