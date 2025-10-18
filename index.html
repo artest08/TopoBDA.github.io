@@ -121,7 +121,7 @@
                             <img src="images/spda_vs_mpda.png" alt="Attention Mechanism Evolution: SPDA to MPDA to BDA comparison" class="research-figure comparison-figure" loading="lazy">
                         </div>
                         <div class="figure-caption">
-                            <strong>Figure 2: Attention Mechanism Evolution.</strong> Comparison of Single-Point Deformable Attention (SPDA) with Multi-Point (MPDA) and Bezier (BDA) Deformable Attention. MPDA and BDA share the same underlying mechanism but differ in the selection of multiple reference points (p_x,p_y).
+                            <strong>Figure 2: Attention Mechanism Evolution.</strong> Comparison of Single-Point Deformable Attention (SPDA), Multi-Point Deformable Attention (MPDA), and Bezier Deformable Attention (BDA). Points denote the reference positions (anchors) for each attention head, while arrows indicate the learned offsets that shift attention from these anchors to the actual sampling locations where features are aggregated. SPDA uses identical reference positions across all heads, whereas MPDA and BDA employ distinct reference positions per head, improving attention efficiency for polyline structures. Although MPDA and BDA share the same underlying mechanism, they differ in how multiple reference points $(p_x, p_y)$ are selected. BDA directly utilizes Bezier points as reference positions, while MPDA requires conversion of Bezier points into polyline points and utilizes polyline points as reference positions.
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                             <img src="images/msda_vs_bda.png" alt="BDA vs MPDA Implementation Efficiency Comparison" class="research-figure comparison-figure" loading="lazy">
                         </div>
                         <div class="figure-caption">
-                            <strong>Figure 3: BDA vs MPDA Implementation.</strong> Comparison of Multi-Point Deformable Attention (MPDA) and Bezier Deformable Attention (BDA): MPDA necessitates an additional matrix multiplication block within each transformer decoder. Despite their different input utilizations as reference points, the mechanisms of MPDA and BDA blocks are fundamentally the same.
+                            <strong>Figure 3: BDA vs MPDA Implementation.</strong> Comparison of Multi-Point Deformable Attention (MPDA) and Bezier Deformable Attention (BDA): MPDA necessitates an additional matrix multiplication block within each transformer decoder \rev{to convert predicted Bezier control points into polyline points for use as reference points}. Despite their different input utilizations as reference points, the mechanisms of MPDA and BDA blocks are fundamentally the same:\rev{each attention head operates on a distinct reference point—polyline points in MPDA and Bezier control points in BDA.
                         </div>
                     </div>
                 </div>
