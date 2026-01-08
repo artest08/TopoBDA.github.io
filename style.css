@@ -88,13 +88,13 @@ body {
 }
 
 .btn-primary {
-    background-color: white;
-    color: #667eea;
+    background-color: transparent;
+    color: white;
 }
 
 .btn-primary:hover {
-    background-color: transparent;
-    color: white;
+    background-color: white;
+    color: #667eea;
     transform: translateY(-2px);
 }
 
