@@ -44,6 +44,18 @@ body {
     opacity: 0.95;
 }
 
+.acceptance-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 1.6em;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-size: 0.95em;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
 .authors {
     margin-bottom: 1em;
     font-size: 1.1em;
@@ -409,6 +421,11 @@ body {
     
     .hero-subtitle {
         font-size: 1.1em;
+    }
+
+    .acceptance-badge {
+        font-size: 0.9em;
+        margin-bottom: 1.3em;
     }
     
     .authors {
