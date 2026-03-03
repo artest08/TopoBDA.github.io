@@ -2,12 +2,13 @@
 
 // Copy citation to clipboard with improved feedback
 function copyToClipboard() {
-    const citationText = `@article{kalfaoglu2024topobda,
-  title={TopoBDA: Towards Bezier Deformable Attention for Road Topology Understanding},
-  author={Kalfaoglu, Muhammet Esat and Ozturk, Halil Ibrahim and Kilinc, Ozsel and Temizel, Alptekin},
-  journal={arXiv preprint arXiv:2412.18951},
-  year={2024}
-}`;
+    const citationElement = document.getElementById('citation-text');
+    const citationText = citationElement ? citationElement.textContent.trim() : '';
+
+    if (!citationText) {
+        showCopyFeedback('✗ Citation text not found', 'error');
+        return;
+    }
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(citationText).then(function() {
